@@ -1,5 +1,29 @@
 spring:
+  datasource:
+    url: jdbc:h2:./chat;MODE=MYSQL
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
   security:
     user:
       name: user
       password: 1234
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        default_batch_fetch_size: 100
+        format_sql: true
+        highlight_sql: true
+        use_sql_comments: true
+logging:
+  level:
+    com.ll.sb231130: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+    org.hibernate.orm.jdbc.extract: TRACE
+    org.springframework.transaction.interceptor: TRACE
+server:
+  port: 8090
