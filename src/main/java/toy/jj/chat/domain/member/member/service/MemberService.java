@@ -31,17 +31,8 @@ public class MemberService {
         return RsData.of("%s님 환영합니다. 회원가입이 완료되었습니다. 로그인 후 이용해주세요.".formatted(member.getUsername()), member);
     }
 
-    @Transactional
-    public RsData<Member> join(String username, String password, String nickname, String profileImgUrl) {
-        Member member = Member.builder()
-                .username(username)
-                .password(passwordEncoder.encode(password))
-                .nickname(nickname)
-                .build();
-        memberRepository.save(member);
 
-        return RsData.of("%s님 환영합니다. 회원가입이 완료되었습니다. 로그인 후 이용해주세요.".formatted(member.getUsername()), member);
+    public Optional<Member> findByUsername(String username) {
+        return memberRepository.findByUsername(username);
     }
-
-
 }

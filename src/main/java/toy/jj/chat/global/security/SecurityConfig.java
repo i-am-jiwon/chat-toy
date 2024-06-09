@@ -50,7 +50,8 @@ public class SecurityConfig {
                 .csrf(
                         csrf -> csrf
                                 .ignoringRequestMatchers(
-                                        "/h2-console/**"
+                                        "/h2-console/**",
+                                        "/api/**"  // 추가된 부분
                                 )
 
                 )
