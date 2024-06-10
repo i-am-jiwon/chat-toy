@@ -9,10 +9,6 @@ const apiInstance = axios.create({
   withCredentials: true,
 });
 
-const apiInstance2 = axios.create({
-  baseURL: "http://localhost:8090",
-  withCredentials: true,
-});
 
 export const HttpGet = async (url, params = null) => {
   try {
