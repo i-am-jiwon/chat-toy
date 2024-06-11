@@ -21,6 +21,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfig {
 
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -51,16 +54,17 @@ public class SecurityConfig {
                         csrf -> csrf
                                 .ignoringRequestMatchers(
                                         "/h2-console/**",
-                                        "/api/**"  // 추가된 부분
+                                        "/api/**"
                                 )
-
                 )
                 .sessionManagement(
                         sessionManagement -> sessionManagement
                                 .sessionCreationPolicy(
                                         SessionCreationPolicy.STATELESS
                                 )
-                );
+                )
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
 
         return http.build();
     }
