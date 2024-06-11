@@ -37,7 +37,9 @@ public class SecurityConfig {
                                 .requestMatchers(
                                         PathRequest.toStaticResources().atCommonLocations(),
                                         new AntPathRequestMatcher("/resources/**"),
-                                        new AntPathRequestMatcher("/h2-console/**")
+                                        new AntPathRequestMatcher("/h2-console/**"),
+                                        new AntPathRequestMatcher("/ws/**")  // WebSocket 경로 허용
+
                                 )
                                 .permitAll()
                                 .anyRequest()
@@ -54,7 +56,9 @@ public class SecurityConfig {
                         csrf -> csrf
                                 .ignoringRequestMatchers(
                                         "/h2-console/**",
-                                        "/api/**"
+                                        "/api/**",
+                                        "/ws/**"  // WebSocket 경로에서 CSRF 비활성화
+
                                 )
                 )
                 .sessionManagement(
