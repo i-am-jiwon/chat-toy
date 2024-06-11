@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    include: secret
   datasource:
     url: jdbc:h2:./chat;MODE=MYSQL
     username: sa
@@ -27,3 +29,6 @@ logging:
     org.springframework.transaction.interceptor: TRACE
 server:
   port: 8090
+custom:
+  jwt:
+    secretKey: 1212121212121asfasdfasdfasdf

@@ -1,22 +1,14 @@
-import { HttpGet } from "./service/httpService";
 import React from "react";
-import { useState, useEffect } from "react";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import ChatApp from "./pages/ChatApp";
 
 function App() {
-   const [hello, setHello] = useState('')
-
-    useEffect(() => {
-        HttpGet("/api/hello").then((data)=>{
-            if(data) {
-                setHello(data);
-            }
-        });
-    }, []);
-
     return (
-        <div>
-            데이터 가져오기 = {hello}
-        </div>
+        <Router>
+            <Routes>
+                <Route path="/chat" element={<ChatApp />} />
+            </Routes>
+        </Router>
     );
 }
 

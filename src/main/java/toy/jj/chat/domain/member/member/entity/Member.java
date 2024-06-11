@@ -11,6 +11,7 @@ import toy.jj.chat.global.jpa.entity.BaseTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import static jakarta.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PROTECTED;
@@ -29,4 +30,41 @@ public class Member extends BaseTime {
     @Transient
     private Boolean _isAdmin;
     private String nickname;
+
+    @Transient
+    public boolean isAdmin() {
+        if (this._isAdmin != null)
+            return this._isAdmin;
+
+        this._isAdmin = List.of("system", "admin").contains(getUsername());
+
+        return this._isAdmin;
+    }
+
+
+    @Transient
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getAuthoritiesAsStringList()
+                .stream()
+                .map(SimpleGrantedAuthority::new)
+                .toList();
+    }
+
+    @Transient
+    public List<String> getAuthoritiesAsStringList() {
+        List<String> authorities = new ArrayList<>();
+
+        authorities.add("ROLE_MEMBER");
+
+        if (isAdmin())
+            authorities.add("ROLE_ADMIN");
+
+        return authorities;
+    }
+
+    @Transient
+    public void setAdmin(boolean admin) {
+        this._isAdmin = admin;
+    }
+
 }

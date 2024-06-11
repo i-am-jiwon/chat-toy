@@ -39,3 +39,4 @@ out/
 ### custom
 chat.mv.db
 chat.trace.db
+/src/main/resources/application-secert.yml
